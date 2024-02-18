@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
             $table->string('libelle');
-            $table->integer('effectif');
+            $table->integer('effectif')->nullable();
             $table->timestamps();
         });
     }
