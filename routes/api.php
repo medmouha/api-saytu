@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\API\ClasseController;
+use App\Http\Controllers\API\EleveController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Spatie\FlareClient\Api;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('eleve/create', [EleveController::class, 'store']);
+Route::put('eleve/{eleve}/update', [EleveController::class, 'update']);
+Route::get('eleve/{eleve}/show', [EleveController::class, 'show']);
+Route::delete('eleve/{eleve}/delete', [EleveController::class, 'destroy']);

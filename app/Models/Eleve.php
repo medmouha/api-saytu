@@ -13,7 +13,6 @@ class Eleve extends Model
         'prenom',
         'nom',
         'adresse',
-        'matricule',
         'dateNaissance',
         'lieuNaissance',
         'classe_id'
