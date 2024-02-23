@@ -22,7 +22,7 @@ class EleveController extends Controller
 
             return response()->json([
                 'status_code' => 200,
-                'status_message' => "L'eleve a ete bien ajoute",
+                'status_message' => "La liste des eleves",
                 'eleve' => $eleves
             ]);
         } catch (Exception $e) {
@@ -69,7 +69,7 @@ class EleveController extends Controller
     public function show(Eleve $eleve)
     {
         try {
-            $student = Eleve::find($eleve)->firstOrFail();
+            $student = Eleve::with('classes')->findOrFail($eleve);
 
             return response()->json([
                 'status_code' => 200,
@@ -87,7 +87,7 @@ class EleveController extends Controller
     public function update(UpdateEleveRequest $request, Eleve $eleve)
     {
         try {
-            $student = Eleve::find($eleve)->firstOrFail();
+            $student = Eleve::findOrFail($eleve);
             $student->update($request->validated());
             
             return response()->json([
@@ -106,8 +106,10 @@ class EleveController extends Controller
     public function destroy(Eleve $eleve)
     {
         try {
-            $classe = Classe::where('id', $eleve->classe_id)->firstOrFail();
-            $eleve->delete();
+            $student = Eleve::findOrFail($eleve);
+            $classe = Classe::where('id', $student->classe_id)->firstOrFail();
+
+            $student->delete();
             $classe->effectif -= 1;
             $classe->save();
 
