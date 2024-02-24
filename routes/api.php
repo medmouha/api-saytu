@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\ClasseController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/classes', [ClasseController::class, 'index']);
+Route::post('/classes', [ClasseController::class, 'store']);
+Route::get('/classes/{id}', [ClasseController::class, 'show']);
+Route::put('/classes/{id}', [ClasseController::class, 'update']);
+Route::delete('/classes/{id}', [ClasseController::class, 'destroy']);
+
+
+
