@@ -16,4 +16,10 @@ class Professeur extends Model
         'telephone'
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
+
 }

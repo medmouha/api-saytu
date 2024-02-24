@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('prenom');
             $table->string('nom');
             $table->string('adresse');
-            $table->string('matricule');
+            $table->string('matricule')->nullable();
             $table->date('dateNaissance');
             $table->string('lieuNaissance');
             $table->foreignId('classe_id')->references('id')->on('classes')->onDelete('cascade');
