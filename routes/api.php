@@ -21,7 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('eleve/create', [EleveController::class, 'store']);
+// Route::post('eleve/create', [EleveController::class, 'store']);
+Route::post('eleves', [EleveController::class, 'store']);
 Route::put('eleve/{eleve}/update', [EleveController::class, 'update']);
 Route::get('eleve/{eleve}/show', [EleveController::class, 'show']);
 Route::delete('eleve/{eleve}/delete', [EleveController::class, 'destroy']);
