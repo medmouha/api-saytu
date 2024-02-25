@@ -1,15 +1,15 @@
 <?php
 
-<<<<<<< HEAD
-use App\Http\Controllers\API\NoteController;
-=======
 use App\Http\Controllers\API\ClasseController;
 use App\Http\Controllers\API\EleveController;
+use App\Http\Controllers\API\EvaluationController;
+use App\Http\Controllers\API\NoteController;
+// >>>>>>> 20ddd0b26c92d7b5e289dbf1fdf66d28bb2d16f1
 use App\Http\Controllers\ProfesseurController;
->>>>>>> 20ddd0b26c92d7b5e289dbf1fdf66d28bb2d16f1
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Spatie\FlareClient\Api;
+
 
 
 /*
@@ -30,18 +30,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-<<<<<<< HEAD
-Route::post('classes', [NoteController::class, 'classes']);
-Route::post('storeclasses', [NoteController::class, 'storeclasses']);
 
-Route::post('matieres', [NoteController::class, 'matieres']);
-Route::post('eleves', [NoteController::class, 'eleves']);
-Route::post('/eleves/store', [NoteController::class, 'storeEleve']);
-Route::post('elevesNote', [NoteController::class, 'storeNote']);
+
+Route::post('store', [EvaluationController::class, 'store']);
+
+Route::get('/evaluations', [EvaluationController::class, 'getAllEvaluations']);
+Route::get('/evaluations/{evaluation}', [EvaluationController::class, 'show']);
+
+
 
 Route::get('storeEleves', [NoteController::class, 'storeEleves']);
 Route::post('index', [NoteController::class, 'index']);
-=======
+
 
 
 Route::post('eleve/create', [EleveController::class, 'store']);
@@ -54,4 +54,4 @@ Route::delete('eleve/{eleve}/delete', [EleveController::class, 'destroy']);
 
 
 //prof//
->>>>>>> 20ddd0b26c92d7b5e289dbf1fdf66d28bb2d16f1
+// >>>>>>> 20ddd0b26c92d7b5e289dbf1fdf66d28bb2d16f1

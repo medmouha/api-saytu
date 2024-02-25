@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,18 +11,12 @@ class Evaluation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'classe_id',
         'eleve_id',
         'matiere_id',
         'note'
     ];
 
-    public function classes()
-    {
-        return $this->belongsTo(Classe::class, 'classe_id');
-    }
-
-    public function eleves()
+    public function eleve()
     {
         return $this->belongsTo(Eleve::class, 'eleve_id');
     }
@@ -31,3 +26,18 @@ class Evaluation extends Model
         return $this->belongsTo(Matiere::class, 'matiere_id');
     }
 }
+
+
+
+    
+
+//     public function eleves()
+//     {
+//         return $this->belongsTo(Eleve::class, 'eleve_id');
+//     }
+
+//     public function matiere()
+//     {
+//         return $this->belongsTo(Matiere::class, 'matiere_id');
+//     }
+// }

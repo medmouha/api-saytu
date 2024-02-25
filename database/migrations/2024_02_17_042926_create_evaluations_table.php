@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('evaluations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('classe_id')->references('id')->on('classes')->onDelete('cascade');
+            // $table->foreignId('classe_id')->references('id')->on('classes')->onDelete('cascade');
             $table->foreignId('eleve_id')->references('id')->on('eleves')->onDelete('cascade');
             $table->foreignId('matiere_id')->references('id')->on('matieres')->onDelete('cascade');
             $table->float('note');
