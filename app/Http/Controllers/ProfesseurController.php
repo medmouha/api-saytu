@@ -29,10 +29,10 @@ class ProfesseurController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'prenom' => 'required',
-                'nom' => 'required',
-                'email' => 'required|email',
-                'telephone' => 'required'
+                'prenom' => 'required|string',
+                'nom' => 'required|string',
+                'email' => 'required|email|unique:professeurs,email',
+                'telephone' => 'required|numeric|unique:professeurs,telephone'
             ]);
 
             return Professeur::create($validatedData);
@@ -64,10 +64,10 @@ class ProfesseurController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'prenom' => 'required',
-                'nom' => 'required',
+                'prenom' => 'required|string',
+                'nom' => 'required|string',
                 'email' => 'required|email',
-                'telephone' => 'required'
+                'telephone' => 'required|numeric|unique:professeurs,telephone'
             ]);
 
             $professeur->update($validatedData);

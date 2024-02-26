@@ -69,12 +69,13 @@ class EleveController extends Controller
     public function show(Eleve $eleve)
     {
         try {
-            $student = Eleve::with('classes')->findOrFail($eleve);
+            $classe = Classe::where('id', $eleve->classe_id)->pluck('libelle')->firstOrFail();
 
             return response()->json([
                 'status_code' => 200,
                 'status_message' => "L'eleve a ete bien trouve",
-                'eleve' => $student
+                'eleve' => $eleve,
+                'classe' => $classe
             ]);
         } catch (Exception $e) {
             return response()->json($e);
@@ -87,13 +88,20 @@ class EleveController extends Controller
     public function update(UpdateEleveRequest $request, Eleve $eleve)
     {
         try {
-            $student = Eleve::findOrFail($eleve);
-            $student->update($request->validated());
+            $classe = Classe::where('id', $request->classe_id)->firstOrFail();
+            $cla = Classe::where('id', $eleve->classe_id)->firstOrFail();
+            $eleve->update($request->validated());
+            if ($classe->id != $cla->id) {
+                $classe->effectif += 1;
+                $classe->save();
+                $cla->effectif -= 1;
+                $cla->save();
+            }
             
             return response()->json([
                 'status_code' => 200,
                 'status_message' => "L'eleve a ete bien modifie",
-                'eleve' => $student
+                'eleve' => $eleve
             ]);
         } catch (Exception $e) {
             return response()->json($e);
@@ -106,10 +114,9 @@ class EleveController extends Controller
     public function destroy(Eleve $eleve)
     {
         try {
-            $student = Eleve::findOrFail($eleve);
-            $classe = Classe::where('id', $student->classe_id)->firstOrFail();
+            $classe = Classe::where('id', $eleve->classe_id)->firstOrFail();
 
-            $student->delete();
+            $eleve->delete();
             $classe->effectif -= 1;
             $classe->save();
 
