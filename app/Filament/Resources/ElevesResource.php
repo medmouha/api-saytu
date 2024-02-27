@@ -46,7 +46,6 @@ class ElevesResource extends Resource
                 Tables\Columns\TextColumn::make('prenom'),
                 Tables\Columns\TextColumn::make('nom'),
                 Tables\Columns\TextColumn::make('adresse'),
-                Tables\Columns\TextColumn::make('adresse'),
                 Tables\Columns\TextColumn::make('matricule'),
                 Tables\Columns\TextColumn::make('dateNaissance'),
                 Tables\Columns\TextColumn::make('lieuNaissance'),
