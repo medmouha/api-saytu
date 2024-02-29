@@ -6,7 +6,7 @@ use App\Http\Controllers\ProfesseurController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Spatie\FlareClient\Api;
-
+ 
 
 /*
 |--------------------------------------------------------------------------
