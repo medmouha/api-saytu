@@ -32,10 +32,11 @@ class ElevesResource extends Resource
                   Forms\Components\TextInput::make('adresse')->required(),
                   Forms\Components\TextInput::make('matricule')->required(),
                   DatePicker::make('dateNaissance')
-    ->native(false)
-    ->displayFormat('d/m/Y'),
+                  ->native(false)
+                    ->displayFormat('d/m/Y'),
                   Forms\Components\TextInput::make('lieuNaissance')->required(),
-                  Forms\Components\TextInput::make('classe_id')->required(),
+                  Forms\Components\Select::make('classe_id')
+                  ->relationship('classes', 'libelle')
             ]);
     }
 
@@ -45,11 +46,11 @@ class ElevesResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('prenom'),
                 Tables\Columns\TextColumn::make('nom'),
-                Tables\Columns\TextColumn::make('adresse'),
+                Tables\Columns\TextColumn::make('adresse'), 
                 Tables\Columns\TextColumn::make('matricule'),
                 Tables\Columns\TextColumn::make('dateNaissance'),
                 Tables\Columns\TextColumn::make('lieuNaissance'),
-                Tables\Columns\TextColumn::make('classe_id'),
+                Tables\Columns\TextColumn::make('classes.libelle'),
             ])
             ->filters([
                 //

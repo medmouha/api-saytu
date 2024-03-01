@@ -8,43 +8,60 @@ use Illuminate\Http\Request;
 
 class ClasseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
+
     public function index()
     {
-        //
+        $classes = Classe::all();
+        return response()->json(['classes' => $classes], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Créer une nouvelle classe
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'libelle' => 'required|string'
+        ]);
+
+        $classe = Classe::create($request->all());
+        return response()->json(['classe' => $classe], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Classe $classe)
+    // Afficher les détails d'une classe spécifique
+    public function show($id)
     {
-        //
+        $classe = Classe::findOrFail($id);
+        if (!$classe) {
+            return response()->json(['message' => 'Classe not found'], 404);
+        }
+        return response()->json(['classe' => $classe], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Classe $classe)
+    // Mettre à jour les détails d'une classe
+    public function update(Request $request, $id)
     {
-        //
+        $classe = Classe::findOrFail($id);
+        if (!$classe) {
+            return response()->json(['message' => 'Classe not found'], 404);
+        }
+
+        $request->validate([
+            'libelle' => 'required|string'
+        ]);
+
+        $classe->update($request->all());
+        return response()->json(['message' => 'Classe updated successfully'], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Classe $classe)
+    // Supprimer une classe
+    public function destroy($id)
     {
-        //
+        $classe = Classe::findOrFail($id);
+        if (!$classe) {
+            return response()->json(['message' => 'Classe not found'], 404);
+        }
+
+        $classe->delete();
+        return response()->json(['message' => 'Classe deleted successfully'], 200);
     }
 }

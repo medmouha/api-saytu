@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('nom');
             $table->string('email')->unique();
             $table->string('telephone')->unique();
-            $table->string('password')->nullable();           
+            $table->string('password');
+            $table->foreignId('matieres_id')->constrained('matieres')->cascadeOnDelete();           
             $table->timestamps();
         });
     }

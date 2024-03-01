@@ -22,7 +22,7 @@ class EleveController extends Controller
 
             return response()->json([
                 'status_code' => 200,
-                'status_message' => "L'eleve a ete bien ajoute",
+                'status_message' => "La liste des eleves",
                 'eleve' => $eleves
             ]);
         } catch (Exception $e) {
@@ -69,12 +69,13 @@ class EleveController extends Controller
     public function show(Eleve $eleve)
     {
         try {
-            $student = Eleve::find($eleve)->firstOrFail();
+            $classe = Classe::where('id', $eleve->classe_id)->pluck('libelle')->firstOrFail();
 
             return response()->json([
                 'status_code' => 200,
                 'status_message' => "L'eleve a ete bien trouve",
-                'eleve' => $student
+                'eleve' => $eleve,
+                'classe' => $classe
             ]);
         } catch (Exception $e) {
             return response()->json($e);
@@ -87,13 +88,20 @@ class EleveController extends Controller
     public function update(UpdateEleveRequest $request, Eleve $eleve)
     {
         try {
-            $student = Eleve::find($eleve)->firstOrFail();
-            $student->update($request->validated());
+            $classe = Classe::where('id', $request->classe_id)->firstOrFail();
+            $cla = Classe::where('id', $eleve->classe_id)->firstOrFail();
+            $eleve->update($request->validated());
+            if ($classe->id != $cla->id) {
+                $classe->effectif += 1;
+                $classe->save();
+                $cla->effectif -= 1;
+                $cla->save();
+            }
             
             return response()->json([
                 'status_code' => 200,
                 'status_message' => "L'eleve a ete bien modifie",
-                'eleve' => $student
+                'eleve' => $eleve
             ]);
         } catch (Exception $e) {
             return response()->json($e);
@@ -107,6 +115,7 @@ class EleveController extends Controller
     {
         try {
             $classe = Classe::where('id', $eleve->classe_id)->firstOrFail();
+
             $eleve->delete();
             $classe->effectif -= 1;
             $classe->save();
